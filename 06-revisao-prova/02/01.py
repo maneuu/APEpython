@@ -1,19 +1,25 @@
-linhas = 5
-colunas = 5
+ordem = int(input("Ordem: "))
 
-from random import randint
 
 matriz = []
-for i in range(linhas):
+matriz_identidade = True
+
+for i in range(ordem):
     linha = []
-    for j in range(colunas):
-        if i == j:
-            linha.append(1)
-        else:
-            linha.append(0)
+
+    for j in range(ordem):
+        N = int(input(f"Valor ({i+1}) ({j+1}):"))
+        linha.append(N)
+        if (i == j and N != 1) or (i != j and N != 0):
+            matriz_identidade = False
+        
     matriz.append(linha)
 
-print("="*30)
+
+print("E uma matriz identidade\n" if matriz_identidade else "Não é uma matriz identidade\n")
+
+
+print("="*20)
 for i in matriz:
     print(i)
-print("="*30)
+print("="*20)
