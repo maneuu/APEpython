@@ -58,8 +58,11 @@ while True:
             print("❌ Não encontramos nenhuma vogal no seu texto!")
     elif opcao == 6:
         frequencias = lv.frequencia_vogais(texto)
+        vogais = ['a', 'e', 'i', 'o', 'u']
         print("📊 Frequência das vogais no seu texto:")
-        for vogal, freq in frequencias.items():
+        for i in range(len(vogais)):
+            vogal = vogais[i]
+            freq = frequencias[i]
             print(f"   {vogal.upper()}: {freq}")
     elif opcao == 7:
         mais_freq = lv.vogal_mais_frequente(texto)
