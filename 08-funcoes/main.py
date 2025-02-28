@@ -1,53 +1,69 @@
 import lib_vogais as lv
 
-'''
-    Programa para exibir um menu iterativo com as opções a seguir:
-    
-    1 - Verificar se um texto é formado apenas por vogais.
-    2 - Contar a quantidade de vogais em um texto.
-    3 - Exibir o texto sem as vogais.
-    4 - Exibir o texto substituindo as vogais por * (asterísco).
-    5 - Exibir as vogais presentes no texto.
-    6 - Exibir a frequência de cada vogal no texto.
-    7 - Exibir a(s) vogal(is) que mais aparece(m) no texto.
-    8 - Sair.
-'''
+menu = """
+🔠 MENU - MANIPULAÇÃO DE VOGAIS 🔠
+
+1️⃣ - Verificar se o texto contém apenas vogais.
+2️⃣ - Contar a quantidade de vogais no texto.
+3️⃣ - Exibir o texto sem vogais.
+4️⃣ - Substituir vogais por '*'.
+5️⃣ - Mostrar as vogais presentes no texto.
+6️⃣ - Exibir a frequência de cada vogal.
+7️⃣ - Mostrar a vogal mais frequente.
+8️⃣ - 🚪 Sair.
+"""
 
 while True:
-    print("""
-    1 - Verificar se um texto é formado apenas por vogais.
-    2 - Contar a quantidade de vogais em um texto.
-    3 - Exibir o texto sem as vogais.
-    4 - Exibir o texto substituindo as vogais por * (asterísco).
-    5 - Exibir as vogais presentes no texto.
-    6 - Exibir a frequência de cada vogal no texto.
-    7 - Exibir a(s) vogal(is) que mais aparece(m) no texto.
-    8 - Sair.
-          """)
-    valor = int(input())
-    if valor == 1:
-        teste1 = input("Teste 1 (função eh_texto_vogal): ")
-        print(lv.eh_texto_vogal(teste1))
-    elif valor == 2:
-        teste2 = input("Teste 2 (função quantidade_vogais): ")
-        print(lv.quantidade_vogais(teste2))
-    elif valor == 3:
-        teste3 = input("Teste 3 (função remove_vogais): ")
-        print(lv.remove_vogais(teste3))
-    elif valor == 4:
-        teste4 = input("Teste 4 (função substitui_vogais): ")
-        print(lv.substitui_vogais(teste4))
-    elif valor == 5:
-        teste5 = input("Teste 5 (função identifica_vogais): ")
-        print(lv.identifica_vogais(teste5))
-    elif valor == 6:
-        teste6 = input("Teste 6 (função frequencia_vogais): ")
-        print(lv.frequencia_vogais(teste6))
-    elif valor == 7:
-        teste7 = input("Teste 7 (função vogal_mais_frequente): ")
-        print(lv.vogal_mais_frequente(teste7))
-    elif valor == 8:
-        print("Programa finalizado")
+    print(menu)
+    while True:
+        try:
+            opcao = int(input("📝 Escolha uma opção (1-8): "))
+            if 1 <= opcao <= 8:
+                break
+            else:
+                print("❌ Opção inválida! Escolha um número entre 1 e 8.")
+        except ValueError:
+            print("⚠️ Digite um número válido!")
+
+    if opcao == 8:
+        print("👋 Programa finalizado! Até a próxima!")
         break
-    else:
-        print("Digite um valor valido")
+
+    texto = input("✍️ Digite um texto: ")
+
+    if opcao == 1:
+        resultado = lv.eh_texto_vogal(texto)
+        if resultado:
+            print("😍 Uau! Seu texto é composto apenas por vogais!")
+        else:
+            print("😕 Hmm... Seu texto contém outros caracteres além das vogais.")
+    elif opcao == 2:
+        quantidade = lv.quantidade_vogais(texto)
+        print(f"🔢 O seu texto possui {quantidade} vogais. Incrível, não é?")
+    elif opcao == 3:
+        texto_sem_vogais = lv.remove_vogais(texto)
+        print("📝 Confira como ficou seu texto sem as vogais:")
+        print(texto_sem_vogais)
+    elif opcao == 4:
+        texto_substituido = lv.substitui_vogais(texto)
+        print("✨ Olha só! As vogais foram substituídas por '*':")
+        print(texto_substituido)
+    elif opcao == 5:
+        vogais_encontradas = lv.identifica_vogais(texto)
+        if vogais_encontradas:
+            vogais_formatado = ", ".join(vogais_encontradas)
+            print("🔍 Você usou as seguintes vogais no seu texto:")
+            print(vogais_formatado)
+        else:
+            print("❌ Não encontramos nenhuma vogal no seu texto!")
+    elif opcao == 6:
+        frequencias = lv.frequencia_vogais(texto)
+        print("📊 Frequência das vogais no seu texto:")
+        for vogal, freq in frequencias.items():
+            print(f"   {vogal.upper()}: {freq}")
+    elif opcao == 7:
+        mais_freq = lv.vogal_mais_frequente(texto)
+        print("🏆 A estrela do seu texto é a vogal:")
+        print(mais_freq)
+
+    print("\n🔄 Voltando ao menu...\n")
