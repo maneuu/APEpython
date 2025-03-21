@@ -15,9 +15,11 @@ def quantidade_registros(registros: list) -> int:
 def campi(registros: list) -> list:
     campus = set()
     for linha in registros:
-        inicio = linha.find('Campus')
-        fim = linha.find('"', inicio)
-        campus.add(linha[inicio:fim])
+        # inicio = linha.find('Campus')
+        # fim = linha.find('"', inicio)
+        # campus.add(linha[inicio:fim])
+        linha_separada = linha.split(";")
+        campus.add(linha_separada[4].strip("'\""))
     return list(campus)
 
 
@@ -26,8 +28,8 @@ def cursos(registros: list, nome_campus: str) -> list:
     lista_cursos = set()
     for linha in registros:
         if nome_campus:
-            lista_separada = linha.split(";")
-            nome_curso = lista_separada[6]
+            linha_separada = linha.split(";")
+            nome_curso = linha_separada[6].strip("'\"")
             lista_cursos.add(nome_curso)
     return list(lista_cursos)
 
@@ -37,9 +39,9 @@ def cursos(registros: list, nome_campus: str) -> list:
 def maior_nota_instituicao(registros: list) -> float:
     notas = []
     for linha in registros:
-        lista_separada = linha.split(";")
-        nota = lista_separada[16].replace(",", ".")
-        nota = float(nota.strip("'\""))
+        linha_separada = linha.split(";")
+        nota = linha_separada[16].replace(",", ".")
+        nota = float(nota.strip('"'))
         notas.append(nota)
     return max(notas)
 
@@ -48,23 +50,30 @@ def maior_nota_campus(registros: list, nome_campus: str) -> float:
     notas = []
     for linha in registros:
         if nome_campus in linha:
-            lista_separada = linha.split(";")
-            nota = lista_separada[16].replace(",", ".")
-            nota = float(nota.strip("'\""))
+            linha_separada = linha.split(";")
+            nota = linha_separada[16].replace(",", ".")
+            nota = float(nota.strip('"'))
             notas.append(nota)
     return max(notas)
 
 # Maior nota de um Curso
 def maior_nota_curso(registros: list, codigo_curso: int) -> float:
-    pass
+    notas = []
+    for linha in registros:
+        if str(codigo_curso) in linha:
+            linha_separada = linha.split(";")
+            nota = linha_separada[16].replace(",", ".")
+            nota = float(nota.strip("'\""))
+            notas.append(nota)
+    return max(notas)
 
 # Maior nota de corte da instituição
 def maior_nota_corte_instituicao(registros: list) -> float:
     notas = []
     for linha in registros:
-        lista_separada = linha.split(";")
-        nota = lista_separada[17].replace(",", ".")
-        nota = float(nota.strip("'\""))
+        linha_separada = linha.split(";")
+        nota = linha_separada[17].replace(",", ".")
+        nota = float(nota.strip('"'))
         notas.append(nota)
 
     return max(notas)
@@ -74,28 +83,31 @@ def maior_nota_corte_campus(registros: list, nome_campus: str) -> float:
     notas = []
     for linha in registros:
         if nome_campus in linha:
-            lista_separada = linha.split(";")
-            nota = lista_separada[17].replace(",", ".")
+            linha_separada = linha.split(";")
+            nota = linha_separada[17].replace(",", ".")
             nota = float(nota.strip("'\""))
             notas.append(nota)
     return max(notas)
 
-# registro = registros("dados_mec.csv")
-# print(maior_nota_corte_campus(registro, "Campus Planaltina"))
-
-
 
 def maior_nota_corte_curso(registros: list, codigo_curso: int) -> float:
+    notas = []
     for linha in registros:
-        if codigo_curso in linha:
-            pass
+        if str(codigo_curso) in linha:
+            linha_separada = linha.split(";")
+            nota = linha_separada[17].replace(",", ".")
+            nota = float(nota.strip("'\""))
+            notas.append(nota)
+    return max(notas)
+
 
 # Retorna o código de um determinado curso de um determinado campus
 def codigo_curso(registros: list, nome_campus: str, nome_curso: str) -> int:
-    codigo = None
     for linha in registros:
         if nome_campus in linha and nome_curso in linha:
-            lista_separada = linha.split(";")
-            codigo = int(lista_separada[5].strip("'\""))
-    return codigo
-            
+            linha_separada = linha.split(";")
+            codigo = int(linha_separada[5].strip("'\""))
+            return codigo
+    return False
+    
+
