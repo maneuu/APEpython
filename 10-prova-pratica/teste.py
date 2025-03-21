@@ -32,7 +32,7 @@ print(f'\nCURSOS - {campus}')
 
 for curso in cursos:
     codigo = enem.codigo_curso(registros, campus, curso)
-    if codigo:
-        maior_nota_curso = enem.maior_nota_curso(registros, codigo)
-        maior_nota_corte = enem.maior_nota_corte_curso(registros, codigo)
-        print(f'{curso} - Maior nota: {maior_nota_curso} - Maior nota de corte: {maior_nota_corte}')
+    
+    maior_nota_curso = enem.maior_nota_curso(registros, codigo)
+    maior_nota_corte = enem.maior_nota_corte_curso(registros, codigo)
+    print(f'{curso} - Maior nota: {maior_nota_curso} - Maior nota de corte: {maior_nota_corte}')

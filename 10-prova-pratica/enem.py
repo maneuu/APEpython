@@ -15,9 +15,6 @@ def quantidade_registros(registros: list) -> int:
 def campi(registros: list) -> list:
     campus = set()
     for linha in registros:
-        # inicio = linha.find('Campus')
-        # fim = linha.find('"', inicio)
-        # campus.add(linha[inicio:fim])
         linha_separada = linha.split(";")
         campus.add(linha_separada[4].strip("'\""))
     return list(campus)
@@ -27,7 +24,7 @@ def campi(registros: list) -> list:
 def cursos(registros: list, nome_campus: str) -> list:
     lista_cursos = set()
     for linha in registros:
-        if nome_campus:
+        if nome_campus in linha:
             linha_separada = linha.split(";")
             nome_curso = linha_separada[6].strip("'\"")
             lista_cursos.add(nome_curso)
@@ -108,6 +105,5 @@ def codigo_curso(registros: list, nome_campus: str, nome_curso: str) -> int:
             linha_separada = linha.split(";")
             codigo = int(linha_separada[5].strip("'\""))
             return codigo
-    return False
     
 
